@@ -75,24 +75,24 @@ function register_VIM_TUTORIAL_SECTIONS(interpreter, messager, createSection, re
       interpreter.environment.setMode(mode);
     }
 
-  var introduction_section = createSection("Introduction",
+  var introduction_section = createSection("介绍",
         defaultPre,
     [
-        "Hello.",
-        "I am an interactive |Vim| tutorial.",
-        "I'll teach you what Vim is about without hassle. If you are in a hurry, press any key to fast forward.",
-        "To practice what you've learned, try out the |practice| page. It has a context sensitive reference for commands.",
-        "Now, let me introduce you to basics of Vim."
+        "你好",
+        "我是交互式 |Vim| 教程.",
+        "我将轻松的教会你 Vim 是什么. 如果你很着急可以按任意键快进.",
+        "想要练习你学到的东西, 可以切换到 |practice| 页面.",
+        "现在开始学习 Vim 的基础东西."
     ], defaultPost);
 
-    var two_modes_section = createSection("Two modes, insert and normal",
+    var two_modes_section = createSection("Vim的两个模式-insert和normal",
         defaultPre,
     [
-        "Vim has two basic modes. One is |insert| mode, in which you write text as if in normal text editor.",
-        "Another is |normal| mode which provides you efficient ways to navigate and manipulate text.",
-        "At any time, you can see which mode you are in on the status bar which is located at the top of the editor.",
-        "To change between modes, use |Esc| for normal mode and |i| for insert mode",
-        "Let's try it out! First, change to insert mode."
+        "Vim 有两个基础模式. 一个是 |insert| 模式,在这个模式你可以像普通文本编辑器一样输入任何东西.",
+        "另一个是 |normal| 模式， 在这个模式可以高效的在字里行间游走或者操作文本.",
+        "任何时候你都能在状态栏看到你所处的模式.",
+        "按 |Esc| 可以切换到 normal 模式，按 |i| 键可以切换到 insert 模式",
+        "试一试吧，首先，切换到 insert 模式."
     ],
     function() {
         interpreter.environment.setCommandMode();
@@ -100,12 +100,12 @@ function register_VIM_TUTORIAL_SECTIONS(interpreter, messager, createSection, re
             [
              cmd("i", function() {
                $('.screen_view').addClass('active_context');
-               insertText("Good, now you're in insert mode. Write something and change back to normal mode.");
+               insertText("很好，现在你在 insert 模式了，随便写一些东西，然后切换到 normal 模式.");
              }),
              cmd("Esc", function() {
                $('.screen_view').removeClass('active_context');
                interpreter.environment.interpretOneCommand("G");
-               insertText("Good. Let's move on to another section.");
+               insertText("很好，现在进入下一小节.");
              }),
              "Enter"
             ],
@@ -113,89 +113,89 @@ function register_VIM_TUTORIAL_SECTIONS(interpreter, messager, createSection, re
     }
     );
 
-    var basic_movement = createSection("Basic movement: h, j, k, and l",
+    var basic_movement = createSection("基本移动: h, j, k, 和 l",
         defaultPre,
     [
-        "In contrast to regular text editor, you use keys |h|, |j|, |k|, and |l| instead of arrow keys to move the cursor.",
-        "Let's see how it works in practice!"
+        "和普通的编辑器不同, 在 Vim 中你可以用 |h|, |j|, |k|, 以及 |l| 四个键移动光标.",
+        "实际操作一下看看咋用的吧!"
     ], function() {
         interpreter.environment.setCommandMode();
         showCommandOneByOne([
-          "h", "h", "h", "k", "l", "l", "h", "h", "j",
+          "h", "h", "h", "l", "l", "l", "k", "j","k","j",
           cmd("Enter", function() {
-            insertText("Let's move on.");
+            insertText("继续下一节.");
           }), "Enter"],
           accepterCreator);
     });
 
-    var word_movement = createSection("Word movement: w, e, b",
+    var word_movement = createSection("单词间跳转: w, e, b",
         defaultPre,
       [
-        "To navigate the text in terms of words, you can use keys |w|, |b|, and |e| (also W, B, E in real Vim).",
-        "|w| moves to the start of next word; |e| moves to the end of the word; and |b| moves to beginning of the word."
+        "在单词间跳转, 你可以用 |w|, |b|, 和 |e|.",
+        "|w| 移到下一个单词的开头; |e| 移到单词的结尾;  |b| 移到单词的开头. -->请在英文单词上测试 oh,today is a good day"
       ], function() {
         interpreter.environment.setCommandMode();
         showCommandOneByOne([
           "b", "b", "w", "b", "e", "w",
           cmd("Enter", function() {
-            insertText("Word! Let's move on.");
+            insertText("继续下一节.");
           }), "Enter"],
           accepterCreator);
     });
 
-    var times_movement = createSection("Number powered movement, e.g. 5w",
+    var times_movement = createSection("一次多动, e.g. 5w",
       defaultPre,
       [
-          "Moving within the text is not limited to individual keys; you can combine movement keys with a |number|. For example, |3w| is the same as pressing w three times."
+          "移动并不限于一次移动一个位置; 你可以把按键前面加一个数字. 比如, |3w| 相当于按 |w| 键三次."
       ],
       function() {
         interpreter.environment.setCommandMode();
         interpreter.interpretSequence("0");
-        showCommandOneByOne(["3", "w", "9", "l", "2", "b",
-            cmd("Enter", function() { insertText("With numbers, ain't no numbness.") }),
+        showCommandOneByOne(["3", "w", "5", "l", "2", "b",
+            cmd("Enter", function() { insertText("要尽量多用数字.") }),
             "Enter"
         ],
         accepterCreator)
       });
 
-    var times_inserting = createSection("Insert text repeatedly, e.g. 3iYes",
+    var times_inserting = createSection("重复输入文本, 比如. 3iYes",
         defaultPre,
         [
-            "You can insert text multiple times.",
-            "For example, an underline of a header might consist of 30 |-|s.",
+            "你可以多次插入一个文本.",
+            "比如一个分割线可能包含30个 |-| ，如下.",
             "------------------------------",
-            "With |30i-| |Esc|, there's no need to press |-| 30 times.",
-            "Let's try it out: insert |go| three times."
+            "输入 |30i-| |Esc|, 就没有必要输入 |-| 30 次了.",
+            "试一试: 输入 |go| 3次."
         ],
         function() {
             interpreter.environment.setCommandMode();
             showCommandOneByOne(
                 ["3", "i", "g", "o", "Esc",
-                cmdWithText("Enter", "See? 10iAll work is only playEsc."),
+                cmdWithText("Enter", "看到了么，魔法必须要按了 Esc 后才生效."),
                 "Enter"
                 ], accepterCreator)
         });
 
-    var find_occurrence = createSection("Find a character, f and F",
+    var find_occurrence = createSection("查找一个字符, f 和 F",
         defaultPre,
         [
-            "To find and move to the next (or previous) occurrence of a character, use |f| and |F|, e.g. |fo| finds next o.",
-            "You can combine f with a number. For example, you can find 3rd occurrence of 'q' with |3fq|, que?"
+            "向前或者向后查找一个字符, 用 |f| 或者 |F|, 比如. |fo| 查找下一个出现的 o.",
+            "你可以和数字组合. 如你可以用 |3fq| 找到光标后第三次出现的 'q'，hello,aq bq cq"
         ],
         function() {
           interpreter.environment.setCommandMode();
           interpreter.interpretSequence("0");
-          showCommandOneByOne(["f", "w", "f", "s", "3", "f", "q",
-              cmd("Enter", function() { insertText("F-f-f-ast!") }),
+          showCommandOneByOne(["f", "o", "3", "f", "q",
+              cmd("Enter", function() { insertText("继续!") }),
               "Enter"
           ], accepterCreator)
         });
 
-    var matching_parentheses = createSection("Go to matching parentheses, %",
+    var matching_parentheses = createSection("括号匹配, %",
       defaultPre,
       [
-        "In text that is structured with parentheses or brackets, |(| or |{| or |[|, use |%| to jump to the matching parenthesis or bracket.",
-        "Here is (a sample) text to try that."
+        "对于用括号括起来的文本, |(| or |{| or |[|, 可以用 |%| 匹配成对的括号.",
+        "这个样例 (a sample) 你可以做个测试."
       ],
       function() {
         interpreter.environment.setCommandMode();
@@ -203,28 +203,29 @@ function register_VIM_TUTORIAL_SECTIONS(interpreter, messager, createSection, re
         showCommandOneByOne(["%", "%", "Enter"], accepterCreator)
       });
 
-    var start_and_end_of_line = createSection("Go to start/end of line, 0 and $",
+    var start_and_end_of_line = createSection("跳到行首或者行尾, 0 and $",
       defaultPre,
       [
-        "To reach the beginning of a line, press |0|.",
-        "For the end of a line, there's |$|"
+        "跳到行首，请按 |0|.",
+        "跳到行尾，请按 |$|"
       ],
       function() {
         interpreter.environment.setCommandMode();
         showCommandOneByOne(["0", "$", "0", "Enter"], accepterCreator)
       });
 
-    var word_under_cursor = createSection("Find word under cursor, * and #",
+    var word_under_cursor = createSection("查找光标下的单词, * and #",
       defaultPre,
         [
-         "Find the next occurrence of the word under cursor with |*|, and the previous with |#|."
+         "向后查找单词用 |*|, 向前单词查找用 |#|.",
+ 	 "hello,nihao,hello,nihao,hello,nihao.（如果查找不工作，那这个教程有bug）"
         ],
         function() {
           interpreter.environment.setCommandMode();
-          interpreter.interpretSequence(["0", "w"]);
+          interpreter.interpretSequence(["0"]);
           showCommandOneByOne(["*", "*", "#",
               cmd("#", function() {
-                insertText("Nothing new under the cursor.")
+                insertText("没有了.")
               }), "Enter"], accepterCreator)
         });
 
